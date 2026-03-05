@@ -15,6 +15,8 @@ type SparklesBackgroundProps = {
   minSize?: number;
   maxSize?: number;
   speed?: number;
+  moveSpeedMin?: number;
+  moveSpeedMax?: number;
   particleColor?: string;
   particleDensity?: number;
 };
@@ -26,6 +28,8 @@ export const SparklesBackground = ({
   minSize,
   maxSize,
   speed,
+  moveSpeedMin,
+  moveSpeedMax,
   particleColor,
   particleDensity,
 }: SparklesBackgroundProps) => {
@@ -48,10 +52,21 @@ export const SparklesBackground = ({
         minSize,
         maxSize,
         speed,
+        moveSpeedMin,
+        moveSpeedMax,
         particleColor,
         particleDensity,
       }),
-    [background, minSize, maxSize, speed, particleColor, particleDensity]
+    [
+      background,
+      minSize,
+      maxSize,
+      speed,
+      moveSpeedMin,
+      moveSpeedMax,
+      particleColor,
+      particleDensity,
+    ]
   );
 
   const particlesLoaded = async (container?: Container) => {

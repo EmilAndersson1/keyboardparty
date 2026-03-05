@@ -5,6 +5,8 @@ type CreateSparklesOptionsParams = {
   minSize?: number;
   maxSize?: number;
   speed?: number;
+  moveSpeedMin?: number;
+  moveSpeedMax?: number;
   particleColor?: string;
   particleDensity?: number;
 };
@@ -14,6 +16,8 @@ export const createSparklesOptions = ({
   minSize,
   maxSize,
   speed,
+  moveSpeedMin,
+  moveSpeedMax,
   particleColor,
   particleDensity,
 }: CreateSparklesOptionsParams): ISourceOptions => {
@@ -55,8 +59,8 @@ export const createSparklesOptions = ({
           default: "out",
         },
         speed: {
-          min: 0.1,
-          max: 1,
+          min: moveSpeedMin ?? 0.1,
+          max: moveSpeedMax ?? 1,
         },
       },
       number: {
