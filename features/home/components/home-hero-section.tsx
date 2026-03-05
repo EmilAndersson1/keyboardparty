@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { SparklesBackground } from "@/components/effects/sparkles-background";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
@@ -30,6 +30,7 @@ const PARTY_COLORS = [
 const MAX_ACTIVE_EFFECT_NODES = 140;
 const KEY_EFFECT_COOLDOWN_MS = 48;
 const MOUSE_EFFECT_INTERVAL_MS = 62;
+const EFFECT_SIZE_MULTIPLIER = 1.3;
 
 const randomFrom = <T,>(items: readonly T[]) =>
   items[Math.floor(Math.random() * items.length)];
@@ -95,7 +96,7 @@ const PartyBurstLayer = ({ enabled }: PartyBurstLayerProps) => {
         particle.style.userSelect = "none";
         particle.style.zIndex = "30";
         particle.style.willChange = "transform, opacity";
-        particle.style.fontSize = `${20 + Math.random() * 18}px`;
+        particle.style.fontSize = `${(20 + Math.random() * 18) * EFFECT_SIZE_MULTIPLIER}px`;
 
         const angle = (Math.PI * 2 * i) / count + Math.random() * 0.4;
         const distance = 30 + Math.random() * 95;
@@ -148,7 +149,7 @@ const PartyBurstLayer = ({ enabled }: PartyBurstLayerProps) => {
       letter.style.fontWeight = "900";
       letter.style.letterSpacing = "0.06em";
       letter.style.fontFamily = "var(--font-geist-sans), sans-serif";
-      letter.style.fontSize = `${36 + Math.random() * 42}px`;
+      letter.style.fontSize = `${(36 + Math.random() * 42) * EFFECT_SIZE_MULTIPLIER}px`;
       letter.style.color = color;
       letter.style.textShadow = `0 0 14px ${color}, 0 0 34px ${color}99`;
       letter.style.willChange = "transform, opacity";
@@ -197,7 +198,7 @@ const PartyBurstLayer = ({ enabled }: PartyBurstLayerProps) => {
       flash.style.pointerEvents = "none";
       flash.style.userSelect = "none";
       flash.style.zIndex = "31";
-      flash.style.fontSize = `${24 + Math.random() * 14}px`;
+      flash.style.fontSize = `${(24 + Math.random() * 14) * EFFECT_SIZE_MULTIPLIER}px`;
       flash.style.color = color;
       flash.style.textShadow = `0 0 12px ${color}, 0 0 24px ${color}`;
       flash.style.willChange = "transform, opacity";
@@ -239,8 +240,8 @@ const PartyBurstLayer = ({ enabled }: PartyBurstLayerProps) => {
         spark.style.position = "fixed";
         spark.style.left = `${x}px`;
         spark.style.top = `${y}px`;
-        spark.style.width = "3px";
-        spark.style.height = `${16 + Math.random() * 12}px`;
+        spark.style.width = `${3 * EFFECT_SIZE_MULTIPLIER}px`;
+        spark.style.height = `${(16 + Math.random() * 12) * EFFECT_SIZE_MULTIPLIER}px`;
         spark.style.borderRadius = "999px";
         spark.style.background = sparkColor;
         spark.style.boxShadow = `0 0 10px ${sparkColor}`;
@@ -294,7 +295,7 @@ const PartyBurstLayer = ({ enabled }: PartyBurstLayerProps) => {
       particle.style.userSelect = "none";
       particle.style.zIndex = "30";
       particle.style.willChange = "transform, opacity";
-      particle.style.fontSize = `${14 + Math.random() * 10}px`;
+      particle.style.fontSize = `${(14 + Math.random() * 10) * EFFECT_SIZE_MULTIPLIER}px`;
       particle.style.color = randomFrom(PARTY_COLORS);
 
       const driftX = Math.random() * 26 - 13;
@@ -410,9 +411,9 @@ export const HomeHeroSection = () => {
   }, []);
 
   return (
-    <section className="relative isolate flex h-screen min-h-screen w-full items-center justify-center overflow-hidden bg-black px-6">
+    <section className="relative isolate flex h-[100dvh] min-h-[100dvh] w-full items-center justify-center overflow-clip bg-black px-6">
       <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(120%_80%_at_50%_10%,#18213c_0%,#090b12_50%,#000_100%)]" />
-      <div className="pointer-events-none fixed inset-0 z-0 h-screen w-screen">
+      <div className="pointer-events-none fixed -inset-10 z-0">
         <motion.div
           className="h-full w-full"
           initial={false}
@@ -461,7 +462,7 @@ export const HomeHeroSection = () => {
         </HoverBorderGradient>
       </motion.div>
 
-      <footer className="pointer-events-none absolute inset-x-0 bottom-3 z-20 text-center text-[11px] tracking-wide text-white/45 md:text-xs">
+      <footer className="pointer-events-none fixed inset-x-0 z-20 text-center text-[11px] tracking-wide text-white/45 md:text-xs [bottom:max(0.75rem,env(safe-area-inset-bottom))]">
         {`© ${year} Emil Andersson · MIT Licensed`}
       </footer>
 
@@ -469,3 +470,5 @@ export const HomeHeroSection = () => {
     </section>
   );
 };
+
+

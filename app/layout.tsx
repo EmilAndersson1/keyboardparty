@@ -33,7 +33,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="en" className="bg-black">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-black antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-hidden bg-black antialiased`}
       >
         {children}
       </body>
