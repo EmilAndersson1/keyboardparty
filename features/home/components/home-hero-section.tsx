@@ -404,6 +404,7 @@ const PartyBurstLayer = ({ enabled }: PartyBurstLayerProps) => {
 
 export const HomeHeroSection = () => {
   const [partyStarted, setPartyStarted] = useState(false);
+  const year = new Date().getFullYear();
   const startParty = useCallback(() => {
     setPartyStarted(true);
   }, []);
@@ -459,6 +460,10 @@ export const HomeHeroSection = () => {
           <span>Get Started</span>
         </HoverBorderGradient>
       </motion.div>
+
+      <footer className="pointer-events-none absolute inset-x-0 bottom-3 z-20 text-center text-[11px] tracking-wide text-white/45 md:text-xs">
+        {`© ${year} Emil Andersson · MIT Licensed`}
+      </footer>
 
       <PartyBurstLayer enabled={partyStarted} />
     </section>
