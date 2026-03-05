@@ -33,7 +33,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html
       lang="en"
-      className="bg-black [background-image:radial-gradient(120%_80%_at_50%_10%,#18213c_0%,#090b12_50%,#000_100%)]"
+      className="bg-black [background-image:radial-gradient(80%_66%_at_50%_50%,#18213a_0%,#141c31_18%,#10172a_34%,#0c1221_48%,rgba(10,15,26,0.94)_60%,rgba(8,12,21,0.78)_70%,rgba(5,8,14,0.52)_78%,rgba(3,5,9,0.26)_85%,transparent_90%)]"
     >
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-transparent antialiased`}
