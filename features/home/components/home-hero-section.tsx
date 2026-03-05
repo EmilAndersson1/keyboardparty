@@ -35,6 +35,12 @@ const EFFECT_SIZE_MULTIPLIER = 1.3;
 const randomFrom = <T,>(items: readonly T[]) =>
   items[Math.floor(Math.random() * items.length)];
 
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, value));
+
+const randomInRange = (min: number, max: number) =>
+  min + Math.random() * (max - min);
+
 const normalizeKeyLabel = (key: string) => {
   if (key === " ") {
     return "Woop!!";
@@ -346,24 +352,55 @@ const PartyBurstLayer = ({ enabled }: PartyBurstLayerProps) => {
 
       const keyLabel = normalizeKeyLabel(event.key);
       const viewportPadding = 36;
-      const x =
-        viewportPadding +
-        Math.random() * Math.max(window.innerWidth - viewportPadding * 2, 1);
-      const y =
-        viewportPadding +
-        Math.random() * Math.max(window.innerHeight - viewportPadding * 2, 1);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const minX = viewportPadding;
+      const maxX = Math.max(width - viewportPadding, minX + 1);
+      const minY = viewportPadding;
+      const maxY = Math.max(height - viewportPadding, minY + 1);
 
-      createKeyLetter(x, y, keyLabel);
-      createEmojiBurst(x, y, 4);
+      const createCenterWeightedPoint = () => {
+        const x = clamp(
+          width * 0.5 + randomInRange(-width * 0.264, width * 0.264),
+          minX,
+          maxX,
+        );
+        const y = clamp(
+          height * 0.56 + randomInRange(-height * 0.24, height * 0.24),
+          minY,
+          maxY,
+        );
+        return { x, y };
+      };
+
+      const createOuterRimPoint = () => {
+        const edgeBand = Math.max(44, Math.min(width, height) * 0.14);
+        const side = Math.floor(Math.random() * 4);
+
+        if (side === 0) {
+          return { x: randomInRange(minX, maxX), y: randomInRange(minY, minY + edgeBand) };
+        }
+        if (side === 1) {
+          return { x: randomInRange(maxX - edgeBand, maxX), y: randomInRange(minY, maxY) };
+        }
+        if (side === 2) {
+          return { x: randomInRange(minX, maxX), y: randomInRange(maxY - edgeBand, maxY) };
+        }
+        return { x: randomInRange(minX, minX + edgeBand), y: randomInRange(minY, maxY) };
+      };
+
+      const isOuterRimSpawn = Math.random() > 0.784;
+      const letterPoint = isOuterRimSpawn
+        ? createOuterRimPoint()
+        : createCenterWeightedPoint();
+
+      createKeyLetter(letterPoint.x, letterPoint.y, keyLabel);
+      createEmojiBurst(letterPoint.x, letterPoint.y, 4);
 
       if (Math.random() > 0.64) {
-        const burstX =
-          viewportPadding +
-          Math.random() * Math.max(window.innerWidth - viewportPadding * 2, 1);
-        const burstY =
-          viewportPadding +
-          Math.random() * Math.max(window.innerHeight - viewportPadding * 2, 1);
-        createEmojiBurst(burstX, burstY, 2);
+        const burstPoint =
+          Math.random() > 0.45 ? createCenterWeightedPoint() : createOuterRimPoint();
+        createEmojiBurst(burstPoint.x, burstPoint.y, 2);
       }
     };
 
