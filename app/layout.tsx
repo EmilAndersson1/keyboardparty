@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
@@ -18,14 +18,23 @@ export const metadata: Metadata = {
   description: "Animated landing page built with Next.js",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#000000",
+};
+
 type RootLayoutProps = Readonly<{
   children: ReactNode;
 }>;
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className="bg-black">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} bg-black antialiased`}
+      >
         {children}
       </body>
     </html>
