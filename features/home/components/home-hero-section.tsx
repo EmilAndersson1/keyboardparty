@@ -462,7 +462,7 @@ export const HomeHeroSection = () => {
   }, []);
 
   return (
-    <section className="relative isolate flex h-[100dvh] min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-black px-6">
+    <section className="relative isolate flex h-[100dvh] min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-transparent px-6">
       <div className="pointer-events-none fixed -inset-10 z-0">
         <motion.div
           className="h-full w-full"
