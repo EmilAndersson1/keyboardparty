@@ -378,15 +378,27 @@ const PartyBurstLayer = ({ enabled }: PartyBurstLayerProps) => {
         const side = Math.floor(Math.random() * 4);
 
         if (side === 0) {
-          return { x: randomInRange(minX, maxX), y: randomInRange(minY, minY + edgeBand) };
+          return {
+            x: randomInRange(minX, maxX),
+            y: randomInRange(minY, minY + edgeBand),
+          };
         }
         if (side === 1) {
-          return { x: randomInRange(maxX - edgeBand, maxX), y: randomInRange(minY, maxY) };
+          return {
+            x: randomInRange(maxX - edgeBand, maxX),
+            y: randomInRange(minY, maxY),
+          };
         }
         if (side === 2) {
-          return { x: randomInRange(minX, maxX), y: randomInRange(maxY - edgeBand, maxY) };
+          return {
+            x: randomInRange(minX, maxX),
+            y: randomInRange(maxY - edgeBand, maxY),
+          };
         }
-        return { x: randomInRange(minX, minX + edgeBand), y: randomInRange(minY, maxY) };
+        return {
+          x: randomInRange(minX, minX + edgeBand),
+          y: randomInRange(minY, maxY),
+        };
       };
 
       const isOuterRimSpawn = Math.random() > 0.784;
@@ -399,7 +411,9 @@ const PartyBurstLayer = ({ enabled }: PartyBurstLayerProps) => {
 
       if (Math.random() > 0.64) {
         const burstPoint =
-          Math.random() > 0.45 ? createCenterWeightedPoint() : createOuterRimPoint();
+          Math.random() > 0.45
+            ? createCenterWeightedPoint()
+            : createOuterRimPoint();
         createEmojiBurst(burstPoint.x, burstPoint.y, 2);
       }
     };
@@ -448,8 +462,7 @@ export const HomeHeroSection = () => {
   }, []);
 
   return (
-    <section className="relative isolate flex h-[100dvh] min-h-[100dvh] w-full items-center justify-center overflow-clip bg-black px-6">
-      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(120%_80%_at_50%_10%,#18213c_0%,#090b12_50%,#000_100%)]" />
+    <section className="relative isolate flex h-[100dvh] min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-black px-6">
       <div className="pointer-events-none fixed -inset-10 z-0">
         <motion.div
           className="h-full w-full"
@@ -507,5 +520,3 @@ export const HomeHeroSection = () => {
     </section>
   );
 };
-
-
